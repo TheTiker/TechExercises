@@ -5,10 +5,10 @@ class Map(object):
     scenes = {
         'beach': Beach(),
         'camp': Camp(),
-        #'plane wreck': PlaneWreck(),
+        'plane_wreck': PlaneWreck(),
         'jungle': Jungle(),
         'the_hatch': Hatch(),
-        #'dharmaville': DharmaVillage(),
+        'dharmaville': DharmaVillage(),
         'the_orchid': Orchid(),
         'gameover': GameOver(),
         'escaped': Escape(),

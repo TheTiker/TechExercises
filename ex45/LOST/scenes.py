@@ -1,16 +1,17 @@
 from sys import exit
 from random import randint
+from player import *
 import time
 
 class Scene(object):
 
-    def enter(self):
+    def enter(self, scene_player):
         exit(1)
 
 
 class GameOver(Scene):
 
-    def enter(self):
+    def enter(self, scene_player):
         print "The island got you! Game over!\n"
         exit(1)
 
@@ -21,14 +22,18 @@ class Beach(Scene):
         return "\nAt the beach:\n"
 
 
-    def enter(self):
+    def enter(self, scene_player):
         atb = Beach()
         print atb
         print "You wake up with blood and dirt all over your face."
         time.sleep(2)
         print "Lying on your back, you stare into the sun."
         time.sleep(2)
+        print "You are very confused, everything is blurred."
+        time.sleep(2)
         print "The last thing you recall is sitting on a plane to Hawaii."
+        time.sleep(2)
+        print "Have you been here before?"
         time.sleep(2)
         print "You get up slowly, but your body aches and makes it difficult."
         time.sleep(2)
@@ -74,7 +79,7 @@ class Camp(Scene):
     def __str__(self):
         return "\nIn the camp:\n"
 
-    def enter(self):
+    def enter(self, scene_player):
         itc = Camp()
         print itc
         print "Sounds wake you up at night. Every morning you find one of you missing."
@@ -94,7 +99,7 @@ class Camp(Scene):
             return 'gameover'
 
         elif "search" in action:
-            return 'planewreck'
+            return 'plane_wreck'
 
         else:
             print "Doing nothing does not help ypu at all!"
@@ -103,13 +108,12 @@ class Camp(Scene):
             return 'gameover'
 
 
-'''
 class PlaneWreck(Scene):
 
     def __str__(self):
         return "\nIn the plane wreck:\n"
 
-    def enter(self):
+    def enter(self, scene_player):
         ipw = PlaneWreck()
         print ipw
         print "You search the plane's carcass for useful objects to defend yourself."
@@ -119,7 +123,7 @@ class PlaneWreck(Scene):
         print "There is a screw driver..."
         print "A fire extinguisher..."
         print "An inflatable vest..."
-        print "A handgun..."
+        print "A gun..."
         print "A tazer..."
         print "A walking cane..."
         print "A photo camera..."
@@ -127,31 +131,35 @@ class PlaneWreck(Scene):
         time.sleep(5)
         print "Pick one at a time."
 
-        items[] = ['photo camera','handgun','lighter']
-        action = raw_input(">: ")
         guesses = 0
+        scene_player.items = []
 
-        while items[] !== 'photo camera','handgun','lighter':
+        while guesses < 3:
 
-            guess = raw_input(">: ")
+            choice = raw_input(">: ")
 
-            if guess == items:
-                print "Good choice, these might come in handy later on."
-                return 'camp'
+            if choice in ['gun', 'tazer', 'screw driver', 'lighter']:
+                scene_player.append(choice)
+                print "Good choice, this might come in handy later on."
+                guesses = guesses + 1
+
+            elif choice in ['camera', 'cane', 'vest', 'extinguisher']:
+                print "Bad choice, this tool is completely useless against a monster."
+                guesses = guesses + 1
 
             else:
-                print "Bad choice, these tools are completely useless against a monster."
-                return 'camp'
+                print "You cannot take this with you. Choose again!"
 
+        print "You return to the camp."
+        return 'camp'
 
-'''
 
 class Jungle(Scene):
 
     def __str__(self):
         return "\nIn the jungle:\n"
 
-    def enter(self):
+    def enter(self, scene_player):
         itj = Jungle()
         print itj
         print "Deep inside the jungle you find the cause of these sounds."
@@ -187,7 +195,7 @@ class Hatch(Scene):
     def __str__(self):
         return "\nDown the hatch:\n"
 
-    def enter(self):
+    def enter(self, scene_player):
         dth = Hatch()
         print dth
         print "As you are looking around to see whether the monster is still there, you trip over a hatch on the ground."
@@ -213,19 +221,18 @@ class Hatch(Scene):
         elif guess != digits:
             print "As the timer is up, some weird hieroglyphs appear on it."
             print "Then the whole island is blown up in a huge beam of bright white light!"
-            return 'gameover'
+            return 'beach'
 
         else:
             return 'gameover'
 
 
-'''
 class DharmaVillage(Scene):
 
     def __str__(self):
         return "\nWelcome to Dharam Village:\n"
 
-    def enter(self):
+    def enter(self, scene_player):
         wtd = DharmaVillage()
         print wtd
         print "You see a couple of houses right in front of you and speed up to get shelter there."
@@ -241,13 +248,33 @@ class DharmaVillage(Scene):
 
         action = raw_input(">: ")
 
-        if "shoot" in action and items = 'gun':
-            print "You pull your gun and start shooting."
-            print "A couple of men go down, but there are way to many."
-            print "They return the fire and injure you lethally."
-            return 'gameover'
+        if "shoot" in action and 'gun' in scene_player.items:
+            print "You pull your gun out and start shooting."
+            print "They return the fire.\n"
 
-        elif "shoot" in action not and item == 'gun':
+            enemy = Player(100)
+
+            while scene_player.health > 0 and enemy.health > 0:
+                scene_player.strike(enemy)
+                print "Enemy's health: %d" %enemy.health
+                time.sleep(1)
+                enemy.strike(scene_player)
+                print "Your health: %d" %scene_player.health
+                time.sleep(1)
+
+            if scene_player.health > enemy.health:
+                print "You escape the village, however severely injured."
+                print "As you enter the jungle you realize that you are back where you have started."
+                print "You pass out..."
+                return 'beach'
+
+            else:
+                print "A couple of men went down, but there are way to many."
+                print "They perforate your body with a fusillade of bullets."
+                print "You immedately succumb to your wounds."
+                return 'gameover'
+
+        elif "shoot" in action:
             print "You stupid idot do not even have a gun!"
             print "They get what you were up to and execute you on the village square."
             return 'gameover'
@@ -257,18 +284,20 @@ class DharmaVillage(Scene):
             print "They shut your mouth, tie you to the gate and let you be eaten by the smoke monster."
             return 'gameover'
 
-        else:
+        elif "accept" in action:
             return 'the_orchid'
 
+        else:
+            print "Your silence makes them suspicious. They think you are a spy and torture you to death."
+            return 'gameover'
 
-'''
 
 class Orchid(Scene):
 
     def __str__(self):
         return "\nIn the orchid:\n"
 
-    def enter(self):
+    def enter(self, scene_player):
         ito = Orchid()
         print ito
         print "After months of living with the others, Ben brings you to their most sacred place:"
@@ -304,7 +333,7 @@ class Escape(Scene):
     def __str__(self):
         return "\nEscape:\n"
 
-    def enter(self):
+    def enter(self, scene_player):
         esc = Escape()
         print esc
         print "You wake up at home, dazzled but alive."
