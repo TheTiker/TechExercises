@@ -1,5 +1,0 @@
-		PlaneWrack		
-TheHatch	Camp	Beach		
-	DharmaVillage	Jungle	TheOrchid	
-		Cave		
-			
