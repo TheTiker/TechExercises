@@ -51,7 +51,17 @@ class Beach(Scene):
         time.sleep(2)
         print "That is when you realize:"
         time.sleep(2)
-        print "\nYou are L O S T..."
+        print "\nYou are..."
+        print '''
+ **               *******          ********       **********
+/**              **/////**        **//////       /////**///
+/**             **     //**      /**                 /**
+/**            /**      /**      /*********          /**
+/**            /**      /**      ////////**          /**
+/**            //**     **              /**          /**
+/********       //*******         ********           /**
+////////         ///////         ////////            //
+        '''
         time.sleep(5)
         print "\nType enter to fight for survival, quit to commit suicide..."
 
