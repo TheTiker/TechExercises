@@ -1,5 +1,5 @@
 from nose.tools import *
-from map import *
+from game.map import *
 
 def test_room():
     gold = Scene("GoldScene", "goldroom", """
@@ -14,7 +14,7 @@ def test_room_paths():
     center = Scene("Center", "center", "Test room in the center.")
     north = Scene("North", "north", "Test room in the north.")
     south = Scene("South", "south", "Test room in the south.")
-    
+
     center.add_paths({'north':north, 'south': south})
     assert_equal(center.go('north'), north)
     assert_equal(center.go('south'), south)
@@ -37,3 +37,11 @@ def test_gothon_game_map():
     assert_equal(START.go('dodge!'), generic_death)
     room = START.go('tell a joke')
     assert_equal(room, laser_weapon_armory)
+
+    room1 = room.go('132')
+    assert_equal(room.go('*'), generic_death)
+    assert_equal(room.go('132'), the_bridge)
+
+    room2 = room1.go('slowly place the bomb')
+    assert_equal(room1.go('throw the bomb'), generic_death)
+    assert_equal(room1.go('slowly place the bomb'), escape_pod)
