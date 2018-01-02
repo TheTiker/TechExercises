@@ -1,5 +1,5 @@
 from nose.tools import *
-from ex47.game import Room
+from game import Room
 
 def test_room():
     gold = Room("GoldRoom",
