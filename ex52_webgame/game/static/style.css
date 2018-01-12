@@ -1,0 +1,12 @@
+body {
+  background-image: url('/static/stars.jpg');
+  color: yellow;
+  font-family: "Monospace";
+  font-size: 13px;
+}
+
+p, a {
+  color: yellow;
+  font-family: "Arial";
+  font-size: 14px;
+}
