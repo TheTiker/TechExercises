@@ -3,17 +3,16 @@
 {% block content %}
 {% if scene %}
   <h1> {{ scene.title }} </h1>
-  <pre style="color:">{{ scene.description }}</pre>
+  <pre>{{ scene.description }}</pre>
   {% if scene.urlname == "gameover" %}
-    <p><a href="/">Play Again?</a></p>
+    <a href="/">Play Again?</a><
   {% else %}
-    <p>
-      <form action="/game" method="POST">
-        What do you do? <input type="text" name="userinput"> <input type="SUBMIT">
-      </form>
-    </p>
+    <form action="/game" method="POST">
+      What do you do? <input type="text" name="userinput"> <input type="SUBMIT">
+    </form>
+
   {% endif %}
 {% else %}
-  <p><a href="/startscreen">Start from the beginning</a></p>
+  <p><a href="/">Start from the beginning</a></p>
 {% endif %}
 {% endblock %}
