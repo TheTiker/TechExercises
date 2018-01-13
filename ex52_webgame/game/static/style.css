@@ -11,9 +11,39 @@ p, a {
   font-size: 14px;
 }
 
+hr { 
+  border: solid #0000FF 1px;
+  height: 1px;
+ 
+}
+
 .container span {
   display: inline-block;
 }
+
+.scene_description {
+  width:500px;
+}
+
+.health_ok {
+  padding: 5px;   
+  height:50px;
+  background:white;
+  color: green;
+}
+
+.health_critical {
+  padding: 5px; 
+  height:50px;
+  background:white;
+  color: red;
+}
+
+.you_died {
+  color: red; 
+  font-size: 4em;
+}
+
 
 fieldset {
 	border: none;

@@ -1,8 +1,10 @@
 class Scene(object):
-    def __init__(self, title, urlname, description):
+    def __init__(self, title, urlname, description, light_story = "", dark_story = ""):
         self.title = title
         self.urlname = urlname
         self.description = description
+        self.light_story = light_story
+        self.dark_story = dark_story
         self.paths = {}
 
     def go(self, direction):
@@ -69,7 +71,15 @@ force_awakens = Scene("VII. The Force Awakens","force_awakens",
 ''')
 
 last_jedi = Scene("VIII. The Last Jedi","last_jedi", 
-'''The FIRST ORDER reigns. Having decimated the peaceful Republic, Supreme Leader Snoke now deploys his merciless legions to seize military control of the galaxy. Only General Leia Organa's band of RESISTANCE fighters stand against the rising tyranny, certain that Jedi Master Luke Skywalker will return and restore a spark of hope to the fight. But the Resistance has been exposed. As the First Order speeds toward the rebel base, the brave heroes mount a desperate escape...''')
+'''The FIRST ORDER reigns. Having decimated the peaceful Republic, Supreme Leader Snoke now deploys his merciless legions to seize military control of the galaxy. Only General Leia Organa's band of RESISTANCE fighters stand against the rising tyranny, certain that Jedi Master Luke Skywalker will return and restore a spark of hope to the fight. But the Resistance has been exposed. As the First Order speeds toward the rebel base, the brave heroes mount a desperate escape...''',
+
+'''
+After years of hiding you finally face your greatest fear. Your former student Kylo Ren. How will you attack. You can either use the force or your lightsaber:
+''',
+'''
+You sense that it is time to venge yourself against your former master Luke Skywalker.
+'''
+)
 
 coming_soon = Scene("IX. Coming Soon!","coming_soon", 
 '''
@@ -89,6 +99,12 @@ generic_death = Scene("Death...", "death", "You died.") #add deaths
 phantom_menace.add_paths({
   'shoot!': generic_death,
   'dodge!': generic_death,
+  'clone': clone_wars
+})
+
+last_jedi.add_paths({
+  'd1': generic_death,
+  'd2': generic_death,
   'clone': clone_wars
 })
 

@@ -1,14 +1,42 @@
 from flask import Flask, session, request
 from flask import url_for, redirect, render_template
+from random import randint
 import map
 
+
 app = Flask(__name__)
+    
+def strike():
+    player_health = session['player_health']
+    enemy_health = session['enemy_health']
+
+    player_health -= randint(0,9)
+    if player_health < 0:
+      player_health = 0;
+
+    enemy_health -= randint(0,9)
+    if enemy_health < 0:
+      enemy_health = 0; 
+
+    session['player_health'] = player_health
+    session['enemy_health'] = enemy_health
+
+    if player_health == 0:
+      return -1
+    elif enemy_health == 0:
+      return 1
+    return 0; 
 
 
 @app.route('/intro', methods=['GET'])
 def intro_get():    
+    session['player_health'] = 100;
+    session['enemy_health'] = 100;
+    user_name = session['username']
+    if user_name is None:
+      user_name = ""
     thescene = map.SCENES[session['scene']]
-    return render_template('intro.html', scene=thescene)
+    return render_template('intro.html', scene=thescene, username=user_name)
 
 @app.route('/intro', methods=['POST'])
 def intro_post():
@@ -26,7 +54,11 @@ def episode_guide_get():
     thescene = map.SCENES[session['scene']]
     username = session['username']
     userrole = session['userrole']
-    return render_template('episode_guide.html', episodes=map.EPISODES , name=username, role=userrole)
+
+    return render_template('episode_guide.html', 
+                            episodes=map.EPISODES, 
+                            name=username, 
+                            role=userrole)
 
 
 @app.route('/select_episode', methods=['GET'])
@@ -38,9 +70,17 @@ def select_episode_get():
 
 @app.route('/game', methods=['GET'])
 def game_get():
-    if 'scene' in session:
+    if 'scene' in session:        
+        if session['userrole'] == 'light':
+          light = True  
+        else:
+          light = False 
         thescene = map.SCENES[session['scene']]
-        return render_template('show_scene.html', scene=thescene)
+        return render_template('show_scene.html', 
+                                scene=thescene, 
+                                lightside=light,
+                                player_health=session['player_health'],
+                                enemy_health=session['enemy_health'])
     else:
 # The user doesn't have a session...
 # What should your code do in response?
@@ -50,9 +90,36 @@ def game_get():
 def game_post():
     userinput = request.form.get('userinput')
     if 'scene' in session:
-        if userinput is None:
+        currentscene = map.SCENES[session['scene']]
+
+        #playerHealth=session['player_health']
+        #enemyHealth=session['enemy_health']
+
+        if session['userrole'] == 'light':
+          light = True  
+        else:
+          light = False 
+
+        if userinput == "":
             # Weird, a POST request to /game with no user input... what should your code do?
-            return render_template('you_died.html')
+            #return render_template('you_died.html')
+            
+            fighter_state = strike();
+            if fighter_state == 1:
+              next_scene = map.victory 
+              next_template = 'victory.html'
+            elif fighter_state == -1:
+              next_scene = map.generic_death
+              next_template = 'generic_death.html'
+            else:
+              next_scene = currentscene
+              next_template = 'show_scene.html'
+
+            return render_template(next_template, 
+                                    scene=next_scene,
+                                    lightside=light,
+                                    player_health=session['player_health'],
+                                    enemy_health=session['enemy_health'])
         else:
             currentscene = map.SCENES[session['scene']]
             nextscene = currentscene.go(userinput)
@@ -62,7 +129,11 @@ def game_post():
                 return render_template('you_died.html')
             else:
                 session['scene'] = nextscene.urlname
-                return render_template('show_scene.html', scene=nextscene)
+                return render_template('show_scene.html', 
+                                        scene=nextscene,
+                                        lightside=light,
+                                        player_health=session['player_health'],
+                                        enemy_health=session['enemy_health'])
     else:
         # There's no session, how could the user get here?
         # What should your code do in response?
@@ -72,8 +143,6 @@ def game_post():
 @app.route('/')
 def index():
     session['scene'] = map.INTRO.urlname
-    session['username'] = None
-    session['userrole'] = None
     return redirect(url_for('intro_get')) # redirect the browser to the url for game_get
 
 app.secret_key = 'replace this with your secret key'

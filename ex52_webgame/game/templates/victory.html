@@ -31,28 +31,9 @@
   {{ scene.description }}
   </div>
   </br>
-  
-  {% if lightside %}  
-    <div class="scene_description">
-     {{ scene.light_story}}
-    </div>
-    </br>
-  {% else %}
-    <div class="scene_description">
-     {{ scene.dark_story}}
-    </div>
-    </br>
-  {% endif %}
-
-  {% if scene.urlname == "gameover" %}
-    <a href="/">Play Again?</a><
-  {% else %}
-    <form action="/game" method="POST">
-      What do you do? <input type="text" name="userinput"> <input type="submit" value="Play">
-    </form>
-  {% endif %}
-{% else %}
-  <p><a href="/">Start from the beginning</a></p>
+  </br>
+  <a href="/">Start from the beginning</a>
+ 
 {% endif %}
 
 {% endblock %}
