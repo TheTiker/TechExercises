@@ -14,7 +14,8 @@ class Scene(object):
     def add_paths(self, paths):
         self.paths.update(paths)
 
-start_screen = Scene("Start Screen", "start_screen",
+
+intro = Scene("Intro", "intro", 
 '''
 A long time ago in a galaxy far, far away....
 
@@ -32,90 +33,90 @@ A long time ago in a galaxy far, far away....
          \__/  \__/ /__/     \__\|__| `._______/ 
 ''')
 
-laser_weapon_armory = Scene("Laser Weapon Armory", "laser_weapon_armory",
-"""
-Lucky for you they made you learn Gothon insults in the academy.
-You tell the one Gothon joke you know:
-Lbhe zbgure vg fb sng, jura fur vfvg nebhaq gut ubhfr, fur fvgf nebhaq gut ubhfr.
-The Gothon bursts into laughter and rolls around on the ground. While its
-laughing you run up and use your copy of Nietzsche's notebooks (translated into Gothon)
-to lecture the Gothon on the shaky foundations of its ideologies. While it tries
-to cope with its existential crisis, you leap through the Weapon Armory door.
-You dive roll into the Weapon Armory, crouch and scan the room for more Gothons
-that might be hiding. It's dead quiet, too quiet.
-You stand up and run to the far side of the room and find the neutron bomb in its
-container. There's a keypad lock on the box and you need the code to get the bomb
-out. If you get the code wrong 10 times then the lock closes forever and you can't
-get the bomb. The code is 3 digits.
-""")
 
-the_bridge = Scene("The Bridge", "the_bridge",
-"""
-The container clicks open and the seal breaks, letting gas out. You grab the
-neutron bomb and run like heck to the bridge where you place it in the right spot.
-You burst into the Bridge with the bomb under your arm and surprise 5 Gothons
-who are trying to take control of the ship. Each of them has an uglier clown costume
-that the last. They don't pull their weapons out of fear that they will set off
-the bomb under your arm.
-""")
+phantom_menace = Scene("I. The Phantom Menace","phantom_menace", 
+'''
+Turmoil has engulfed the Galactic Republic. The taxation of trade routes to outlying star systems is in dispute. Hoping to resolve the matter with a blockade of deadly battleships, the greedy Trade Federation has stopped all shipping to the small planet of Naboo. While the congress of the Republic endlessly debates this alarming chain of events, the Supreme Chancellor has secretly dispatched two Jedi Knights, the guardians of peace and justice in the galaxy, to settle the conflict...."
+''')
 
-escape_pod = Scene("Escape Pod", "escape_pod",
-"""
-You gesture towards the bomb and threaten to set it off, the Gothons put up
-their arms and ask for a truce. You inch backwards to the door, open it, and
-carefully place the bomb on the floor, waving your finger over the detonate button.
-Then you jump back through the door, hit the close button and zap the lock so they
-can't get out. Now that the bomb is placed you run to the escape pod.
-You rush through the ship desperately trying to make it to the escape pod. It seems
-like there's no Gothons around, so you run as fast as possible. Eventually you reach
-the room with the escape pods, and you now need to pick one to take. Some of them could
-be damaged, but you don't have time to look. There's 5 pods, which one do you take?
-""")
+clone_wars = Scene("II. Attack of the Clones","clone_wars",
+'''
+There is unrest in the Galactic Senate. Several thousand solar systems have declared their intentions to leave the Republic. This separatist movement, under the leadership of the mysterious Count Dooku, has made it difficult for the limited number of Jedi Knights to maintain peace and order in the galaxy. Senator Amidala, the former Queen of Naboo, is returning to the Galactic Senate to vote on the critical issue of creating an ARMY OF THE REPUBLIC to assist the overwhelmed Jedi....
+''')
 
-the_end_winner = Scene("You Made It!", "the_end_winner",
-"""
-You jump into pod 2 and hit the eject button. The pod flies out into space heading
-to the planet below. As you're heading down, you look back and see your ship implode
-and then explode like a supernova, taking down the Gothon ship at the same time.
-You made it!
-""")
+sith_revenge = Scene("III. Revenge of the Sith","sith_revenge", 
+'''
+War! The Republic is crumbling under attacks by the ruthless Sith Lord, Count Dooku. There are heroes on both sides. Evil is everywhere. In a stunning move, the fiendish droid leader, General Grievous, has swept into the Republic capital and kidnapped Chancellor Palpatine, leader of the Galactic Senate. As the Separatist Droid Army attempts to flee the besieged capital with their valuable hostage, two Jedi Knights lead a desperate mission to rescue the captive Chancellor....
+''')
 
-the_end_loser = Scene("...", "the_end_loser",
-"""
-You jump into a random pod and hit the eject button. The pod escapes into space
-but there's a crack in the hull. Uh oh. The pod implodes and you with it.
-""")
+new_hope = Scene("IV. A New Hope","new_hope", 
+'''
+It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire's ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet. Pursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy....''')
+
+
+empire_strike = Scene("V. The Empire Strikes Back","empire_strike",
+'''
+It is a dark time for the Rebellion. Although the Death Star has been destroyed, Imperial troops have driven the Rebel forces from their hidden base and pursued them across the galaxy. Evading the dreaded Imperial Starfleet, a group of freedom fighters led by Luke Skywalker has established a new secret base on the remote ice world of Hoth. The evil lord Darth Vader, obsessed with finding young Skywalker, has dispatched thousands of remote probes into the far reaches of space....
+''')
+
+jedi_return = Scene("VI. The Return of the Jedi","jedi_return", 
+'''
+Luke Skywalker has returned to his home planet of Tatooine in an attempt to rescue his friend Han Solo from the clutches of the vile gangster Jabba the Hutt. Little does Luke know that the GALACTIC EMPIRE has secretly begun construction on a new armored space station even more powerful than the first dreaded Death Star. When completed, this ultimate weapon will spell certain doom for the small band of rebels struggling to restore freedom to the galaxy....
+''')
+
+force_awakens = Scene("VII. The Force Awakens","force_awakens", 
+'''Luke Skywalker has vanished. In his absence, the sinister FIRST ORDER has risen from the ashes of the Empire and will not rest until Skywalker, the last Jedi, has been destroyed. With the support of the REPUBLIC, General Leia Organa leads a brave RESISTANCE. She is desperate to find her brother Luke and gain his help in restoring peace and justice to the galaxy. Leia has sent her most daring pilot on a secret mission to Jakku, where an old ally has discovered a clue to Luke's whereabouts....
+''')
+
+last_jedi = Scene("VIII. The Last Jedi","last_jedi", 
+'''The FIRST ORDER reigns. Having decimated the peaceful Republic, Supreme Leader Snoke now deploys his merciless legions to seize military control of the galaxy. Only General Leia Organa's band of RESISTANCE fighters stand against the rising tyranny, certain that Jedi Master Luke Skywalker will return and restore a spark of hope to the fight. But the Resistance has been exposed. As the First Order speeds toward the rebel base, the brave heroes mount a desperate escape...''')
+
+coming_soon = Scene("IX. Coming Soon!","coming_soon", 
+'''
+  Coming Soon!
+''')
+
+victory = Scene("Victory!", "victory", 
+'''
+  You made it through all 8 episodes! Congratulations, you are a true fighter!
+''')
 
 generic_death = Scene("Death...", "death", "You died.") #add deaths
 
-escape_pod.add_paths({
-    '2': the_end_winner,
-    '*': the_end_loser
+
+# =======================================================
+
+phantom_menace.add_paths({
+  'shoot!': generic_death,
+  'dodge!': generic_death,
+  'clone': clone_wars
 })
 
-the_bridge.add_paths({
-    'throw the bomb': generic_death,
-    'slowly place the bomb': escape_pod
-})
-
-laser_weapon_armory.add_paths({
-    '132': the_bridge,
-    '*': generic_death
-})
-
-start_screen.add_paths({
-    'shoot!':generic_death,
-    'dodge!':generic_death,
-    'tell a joke': laser_weapon_armory
-})
+EPISODES = [
+    phantom_menace,
+    clone_wars,
+    sith_revenge,
+    new_hope,
+    empire_strike,
+    jedi_return,
+    force_awakens,
+    last_jedi,
+    coming_soon
+]
 
 SCENES = {
-    start_screen.urlname : start_screen,
-    laser_weapon_armory.urlname : laser_weapon_armory,
-    the_bridge.urlname : the_bridge,
-    escape_pod.urlname : escape_pod,
-    the_end_winner.urlname : the_end_winner,
-    the_end_loser.urlname : the_end_loser,
-    generic_death.urlname : generic_death
+    intro.urlname : intro,    
+    phantom_menace.urlname : phantom_menace,
+    clone_wars.urlname : clone_wars,
+    sith_revenge.urlname : sith_revenge,
+    new_hope.urlname : new_hope,
+    empire_strike.urlname : empire_strike,
+    jedi_return.urlname : jedi_return,
+    force_awakens.urlname : force_awakens,
+    last_jedi.urlname : last_jedi,
+    coming_soon.urlname : coming_soon,
+    victory.urlname : victory
 }
-START = start_screen
+
+START = phantom_menace
+INTRO = intro
