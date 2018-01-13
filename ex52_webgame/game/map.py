@@ -7,6 +7,9 @@ class Scene(object):
         self.dark_story = dark_story
         self.paths = {}
 
+        self.light_actions = {}
+        self.dark_actions = {}
+
     def go(self, direction):
         default_direction = None
         if '*' in self.paths.keys():
@@ -15,6 +18,23 @@ class Scene(object):
 
     def add_paths(self, paths):
         self.paths.update(paths)
+
+
+    def action(self, useraction, lightside):
+        if lightside:
+          return self.light_actions.get(useraction)
+        else:
+          return self.dark_actions.get(useraction)
+
+    def add_light_actions(self, paths):
+        self.light_actions.update(paths)
+
+    def add_dark_actions(self, paths):
+        self.dark_actions.update(paths)
+
+    def add_actions(self, light_actions, dark_actions):
+        self.light_actions.update(light_actions)
+        self.dark_actions.update(dark_actions)
 
 
 intro = Scene("Intro", "intro", 
@@ -91,22 +111,51 @@ victory = Scene("Victory!", "victory",
   You made it through all 8 episodes! Congratulations, you are a true fighter!
 ''')
 
+game_over = Scene("Game over!", "game_over", 
+'''
+  Bla bla bla
+''')
+
+sudden_death = Scene("Sudden Death!", "sudden_death", "Oh no...you died :(")
+
 generic_death = Scene("Death...", "death", "You died.") #add deaths
 
-
-# =======================================================
+# =========================================================================================
 
 phantom_menace.add_paths({
-  'shoot!': generic_death,
-  'dodge!': generic_death,
+  'd': sudden_death,
+  'e': sudden_death,
   'clone': clone_wars
 })
 
+
 last_jedi.add_paths({
-  'd1': generic_death,
-  'd2': generic_death,
-  'clone': clone_wars
+  'd': sudden_death,
+  'e': sudden_death,
+  'clone': coming_soon
 })
+
+
+phantom_menace.add_actions(
+{
+  'd': sudden_death,
+  'c': clone_wars
+},
+{
+  '!d': sudden_death,
+  '!c': clone_wars
+})
+
+last_jedi.add_actions(
+{
+  'd': sudden_death,
+  'c': clone_wars
+},
+{
+  '!d': sudden_death,
+  '!c': clone_wars
+})
+
 
 EPISODES = [
     phantom_menace,

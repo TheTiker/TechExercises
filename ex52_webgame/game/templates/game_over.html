@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% if scene %}
+  <div style="height:50px;">
+    <br>
+    <span>
+      Your health: 
+      {% if player_health > 33 %}  
+        <b class="health_ok">{{ player_health }}</b> 
+      {% else %}
+        <b class="health_critical">{{ player_health }}</b> 
+      {% endif %}
+    </span>
+
+    <span>
+      Enemy health:  
+      {% if enemy_health > 33 %}  
+        <b class="health_ok">{{ enemy_health }}</b> 
+      {% else %}
+        <b class="health_critical">{{ enemy_health }}</b> 
+      {% endif %}
+    </span>
+  </div>
+  <hr>
+
+  <h1 class="you_died"> {{ scene.title }} </h1>
+
+  <div class="scene_description">
+  {{ scene.description }}
+  </div>
+  </br>
+  </br>
+  <a href="/">Start from the beginning</a>
+ 
+{% endif %}
+
+{% endblock %}

@@ -89,51 +89,52 @@ def game_get():
 @app.route('/game', methods=['POST'])
 def game_post():
     userinput = request.form.get('userinput')
+
     if 'scene' in session:
         currentscene = map.SCENES[session['scene']]
-
-        #playerHealth=session['player_health']
-        #enemyHealth=session['enemy_health']
 
         if session['userrole'] == 'light':
           light = True  
         else:
           light = False 
 
-        if userinput == "":
-            # Weird, a POST request to /game with no user input... what should your code do?
-            #return render_template('you_died.html')
-            
-            fighter_state = strike();
-            if fighter_state == 1:
-              next_scene = map.victory 
-              next_template = 'victory.html'
-            elif fighter_state == -1:
-              next_scene = map.generic_death
-              next_template = 'generic_death.html'
-            else:
-              next_scene = currentscene
-              next_template = 'show_scene.html'
+        #nextscene = currentscene.go(userinput)
+        nextscene = currentscene.action(userinput, light)
 
-            return render_template(next_template, 
-                                    scene=next_scene,
+        if userinput == "" or nextscene is None:                      
+          fighter_state = strike();
+          if fighter_state != 0:
+            next_scene = map.game_over 
+            next_template = 'game_over.html'
+          else:
+            next_scene = currentscene
+            next_template = 'show_scene.html'
+
+          return render_template(next_template, 
+                                 scene=next_scene,
+                                 lightside=light,
+                                 player_health=session['player_health'],
+                                 enemy_health=session['enemy_health'])
+        else:
+          #currentscene = map.SCENES[session['scene']]
+          #nextscene = currentscene.go(userinput)
+
+          if nextscene == map.sudden_death:
+            return render_template('sudden_death.html', 
+                                    scene=nextscene,
                                     lightside=light,
                                     player_health=session['player_health'],
                                     enemy_health=session['enemy_health'])
-        else:
-            currentscene = map.SCENES[session['scene']]
-            nextscene = currentscene.go(userinput)
-            if nextscene is None:
-                # There's no transition for that user input.
-                # what should your code do in response?
-                return render_template('you_died.html')
-            else:
-                session['scene'] = nextscene.urlname
-                return render_template('show_scene.html', 
-                                        scene=nextscene,
-                                        lightside=light,
-                                        player_health=session['player_health'],
-                                        enemy_health=session['enemy_health'])
+
+          #if nextscene is None:
+          #   return render_template('intro.html')
+          #else:
+          session['scene'] = nextscene.urlname
+          return render_template('show_scene.html', 
+                                  scene=nextscene,
+                                  lightside=light,
+                                  player_health=session['player_health'],
+                                  enemy_health=session['enemy_health'])
     else:
         # There's no session, how could the user get here?
         # What should your code do in response?
