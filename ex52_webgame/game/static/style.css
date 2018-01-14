@@ -14,7 +14,6 @@ p, a {
 hr { 
   border: solid #0000FF 1px;
   height: 1px;
- 
 }
 
 .container span {
@@ -43,6 +42,15 @@ hr {
   color: red; 
   font-size: 4em;
 }
+
+.player_bonus {
+  color: #00ff00; 
+}
+
+.enemy_bonus {
+  color: red; 
+}
+
 
 
 fieldset {

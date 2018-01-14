@@ -22,6 +22,12 @@
         <b class="health_critical">{{ enemy_health }}</b> 
       {% endif %}
     </span>
+    
+    {% if health_info > 0 %}
+      <span>&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;<b class="player_bonus">Player bonus :))</b></span>
+    {% elif health_info < 0 %}
+      <span>&nbsp;&nbsp;&gt;&gt;&gt;&nbsp;<b class="enemy_bonus">Enemy bonus :((</b></span>  
+    {% endif %}
   </div>
   <hr>
 

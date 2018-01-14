@@ -6,15 +6,21 @@ import map
 
 app = Flask(__name__)
     
-def strike():
+def strike(bonus):
     player_health = session['player_health']
     enemy_health = session['enemy_health']
 
-    player_health -= randint(0,9)
+    if bonus > 0:
+      player_health += bonus
+    elif bonus < 0:
+      enemy_health -= bonus
+    else:
+      player_health -= randint(0,9)
+      enemy_health -= randint(0,9)
+
     if player_health < 0:
       player_health = 0;
 
-    enemy_health -= randint(0,9)
     if enemy_health < 0:
       enemy_health = 0; 
 
@@ -26,6 +32,19 @@ def strike():
     elif enemy_health == 0:
       return 1
     return 0; 
+
+
+def reset_health():
+    player_health = session['player_health']
+    enemy_health = session['enemy_health']
+
+    if player_health < 100:
+      player_health = 100;
+      session['player_health'] = player_health
+
+    if enemy_health < 100:
+      enemy_health = 100;
+      session['enemy_health'] = enemy_health
 
 
 @app.route('/intro', methods=['GET'])
@@ -80,7 +99,8 @@ def game_get():
                                 scene=thescene, 
                                 lightside=light,
                                 player_health=session['player_health'],
-                                enemy_health=session['enemy_health'])
+                                enemy_health=session['enemy_health'],
+                                health_info = 0)
     else:
 # The user doesn't have a session...
 # What should your code do in response?
@@ -92,17 +112,22 @@ def game_post():
 
     if 'scene' in session:
         currentscene = map.SCENES[session['scene']]
+        bonus = 0
 
         if session['userrole'] == 'light':
           light = True  
         else:
           light = False 
 
-        #nextscene = currentscene.go(userinput)
         nextscene = currentscene.action(userinput, light)
 
+        if type(nextscene) is int:
+          bonus = nextscene
+          nextscene = None
+          userinput = ""
+
         if userinput == "" or nextscene is None:                      
-          fighter_state = strike();
+          fighter_state = strike(bonus);
           if fighter_state != 0:
             next_scene = map.game_over 
             next_template = 'game_over.html'
@@ -114,27 +139,33 @@ def game_post():
                                  scene=next_scene,
                                  lightside=light,
                                  player_health=session['player_health'],
-                                 enemy_health=session['enemy_health'])
+                                 enemy_health=session['enemy_health'],
+                                 health_info = bonus)
         else:
-          #currentscene = map.SCENES[session['scene']]
-          #nextscene = currentscene.go(userinput)
-
           if nextscene == map.sudden_death:
-            return render_template('sudden_death.html', 
-                                    scene=nextscene,
-                                    lightside=light,
-                                    player_health=session['player_health'],
-                                    enemy_health=session['enemy_health'])
+            next_template = 'sudden_death.html'
+          elif nextscene == map.victory:
+            next_template = 'victory.html'
+          else:
+            reset_health()
+            next_template = 'show_scene.html'
 
-          #if nextscene is None:
-          #   return render_template('intro.html')
-          #else:
+          
+            
+            #return render_template('sudden_death.html', 
+            #                        scene=nextscene,
+            #                        lightside=light,
+            #                        player_health=session['player_health'],
+            #                        enemy_health=session['enemy_health'],
+            #                        health_info = bonus)
+
           session['scene'] = nextscene.urlname
-          return render_template('show_scene.html', 
+          return render_template(next_template, 
                                   scene=nextscene,
                                   lightside=light,
                                   player_health=session['player_health'],
-                                  enemy_health=session['enemy_health'])
+                                  enemy_health=session['enemy_health'],
+                                  health_info = bonus)
     else:
         # There's no session, how could the user get here?
         # What should your code do in response?

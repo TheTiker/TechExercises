@@ -5,32 +5,15 @@ class Scene(object):
         self.description = description
         self.light_story = light_story
         self.dark_story = dark_story
-        self.paths = {}
 
         self.light_actions = {}
         self.dark_actions = {}
-
-    def go(self, direction):
-        default_direction = None
-        if '*' in self.paths.keys():
-            default_direction = self.paths.get('*')
-        return self.paths.get(direction, default_direction)
-
-    def add_paths(self, paths):
-        self.paths.update(paths)
-
 
     def action(self, useraction, lightside):
         if lightside:
           return self.light_actions.get(useraction)
         else:
           return self.dark_actions.get(useraction)
-
-    def add_light_actions(self, paths):
-        self.light_actions.update(paths)
-
-    def add_dark_actions(self, paths):
-        self.dark_actions.update(paths)
 
     def add_actions(self, light_actions, dark_actions):
         self.light_actions.update(light_actions)
@@ -118,43 +101,55 @@ game_over = Scene("Game over!", "game_over",
 
 sudden_death = Scene("Sudden Death!", "sudden_death", "Oh no...you died :(")
 
-generic_death = Scene("Death...", "death", "You died.") #add deaths
-
 # =========================================================================================
 
-phantom_menace.add_paths({
-  'd': sudden_death,
-  'e': sudden_death,
-  'clone': clone_wars
-})
+player_bonus = 10
+enemy_bonus = 10
 
-
-last_jedi.add_paths({
-  'd': sudden_death,
-  'e': sudden_death,
-  'clone': coming_soon
-})
-
+# =========================================================================================
 
 phantom_menace.add_actions(
 {
   'd': sudden_death,
-  'c': clone_wars
+  'c': clone_wars,
+  'e': -10,
+  'p': 10
 },
 {
   '!d': sudden_death,
-  '!c': clone_wars
+  '!c': clone_wars,
+  '!e': -10,
+  '!p': 10
 })
 
 last_jedi.add_actions(
 {
   'd': sudden_death,
-  'c': clone_wars
+  'c': coming_soon,
+  'e': -5,
+  'p': 5
 },
 {
   '!d': sudden_death,
-  '!c': clone_wars
+  '!c': coming_soon,
+  '!e': -5,
+  '!p': 5
 })
+
+coming_soon.add_actions(
+{
+  'd': sudden_death,
+  'v': victory,
+  'e': -7,
+  'p': 7
+},
+{
+  '!d': sudden_death,
+  '!v': victory,
+  '!e': -6,
+  '!p': 6
+})
+
 
 
 EPISODES = [
