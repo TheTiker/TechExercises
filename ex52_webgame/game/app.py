@@ -6,19 +6,19 @@ import map
 
 app = Flask(__name__)
 
-def strike(bonus):
+def strike(weapon):
     player_health = session['player_health']
     enemy_health = session['enemy_health']
 
-    if bonus > 0:
-        player_health -= randint(1,10)
-    elif bonus < 0:
-        enemy_health -= randint(1,30)
-    elif bonus == 2:
-        player_health -= randint(1,20)
-        enemy_health -= randint(1,20)
+    if weapon == 1:
+      player_health -= randint(1,10)
+    elif weapon == -1:
+      enemy_health -= randint(1,30)
+    elif weapon == 2:
+      player_health -= randint(1,20)
+      enemy_health -= randint(1,20)
     else:
-        player_health -= randint(1,20)
+      player_health -= randint(1,20)
 
     if player_health < 0:
       player_health = 0;
@@ -30,9 +30,9 @@ def strike(bonus):
     session['enemy_health'] = enemy_health
 
     if player_health == 0:
-      return -1
-    elif enemy_health == 0:
       return 1
+    elif enemy_health == 0:
+      return -1
     return 0;
 
 
@@ -47,6 +47,18 @@ def reset_health():
     if enemy_health < 100:
       enemy_health = 100;
       session['enemy_health'] = enemy_health
+
+
+def get_next_scene(current):
+    idx = map.EPISODES.index(current) if current in map.EPISODES else None
+    if idx is None:
+      return map.victory
+    idx += 1
+    nextscene = map.EPISODES[idx] if len(map.EPISODES) > idx else None
+    if nextscene is None:
+      return map.victory
+    else:
+      return nextscene
 
 
 @app.route('/intro', methods=['GET'])
@@ -112,7 +124,7 @@ def game_post():
 
     if 'scene' in session:
         currentscene = map.SCENES[session['scene']]
-        bonus = 0
+        weapon = 0
 
         if session['userrole'] == 'light':
           light = True
@@ -122,12 +134,30 @@ def game_post():
         nextscene = currentscene.action(userinput, light)
 
         if type(nextscene) is int:
-          bonus = nextscene
+          weapon = nextscene
           nextscene = None
           userinput = ""
 
         if userinput == "" or nextscene is None:
-          fighter_state = strike(bonus);
+          fighter_state = strike(weapon);
+
+          if fighter_state == -1: #enemy is dead
+            nextscene = get_next_scene(currentscene)
+
+            if nextscene == map.victory:
+              next_template = 'victory.html'
+            else:
+              reset_health()
+              next_template = 'show_scene.html'
+
+            session['scene'] = nextscene.urlname
+            return render_template(next_template,
+                                  scene=nextscene,
+                                  lightside=light,
+                                  player_health=session['player_health'],
+                                  enemy_health=session['enemy_health'],
+                                  health_info = weapon)
+            
           if fighter_state != 0:
             next_scene = map.game_over
             next_template = 'game_over.html'
@@ -140,7 +170,7 @@ def game_post():
                                  lightside=light,
                                  player_health=session['player_health'],
                                  enemy_health=session['enemy_health'],
-                                 health_info = bonus,
+                                 health_info = weapon,
                                  user_name = session['username'])
         else:
           if nextscene == map.victory:
@@ -155,7 +185,7 @@ def game_post():
                                   lightside=light,
                                   player_health=session['player_health'],
                                   enemy_health=session['enemy_health'],
-                                  health_info = bonus)
+                                  health_info = weapon)
     else:
         return render_template('you_died.html')
 
