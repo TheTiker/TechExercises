@@ -3,16 +3,16 @@
 
 <h1>Episode Guide</h1>
 
-<h3>Ok '{{ role }}' {{ name }}, choose an episode to start from:</h3>
+<h3>Alright young {{ name }}, choose an episode to start the battle:</h3>
 
-{% if episodes %}  
+{% if episodes %}
   <div>
   {% for e in episodes %}
     <div style="height:30px;">
       <span style="margin-left:20px;">
         <a href="select_episode?urlname={{ e.urlname }}"><b>{{ e.title }}</b></a>
       </span>
-    </div>    
+    </div>
   {% endfor %}
   </div>
 {% endif %}
