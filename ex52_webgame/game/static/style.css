@@ -1,15 +1,22 @@
 body {
   background-image: url('/static/stars.jpg');
   color: yellow;
-  font-family: "Lucida Console", Monaco, monospace, Verdana;
+  font-family: 'Roboto Mono', monospace, serif;
   font-size: 15px;
+  word-spacing: 0px; 
 }
 
 p, a {
   color: yellow;
-  font-family: "Lucida Console", Monaco, monospace, Verdana;
-  font-size: 14px;
+  font-size: 15px;
 }
+
+pre {
+  font-family: 'Roboto Mono', monospace, serif;
+  font-size: 16px;  
+  line-height: 120%;
+}
+
 
 hr {
   border: solid #00FFFF 1px;
