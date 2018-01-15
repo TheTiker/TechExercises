@@ -24,17 +24,17 @@ intro = Scene("Intro", "intro",
 '''
 A long time ago in a galaxy far, far away....
 
-          ________________.  ___     .______ 
-         /                | /   \    |   _  \ 
-        |   (-----|  |----'/  ^  \   |  |_)  | 
-         \   \    |  |    /  /_\  \  |      / 
-    .-----)   |   |  |   /  _____  \ |  |\  \-------. 
-    |________/    |__|  /__/     \__\| _| `.________| 
-     ____    __    ____  ___     .______    ________. 
-     \   \  /  \  /   / /   \    |   _  \  /        | 
-      \   \/    \/   / /  ^  \   |  |_)  ||   (-----' 
-       \            / /  /_\  \  |      /  \   \ 
-        \    /\    / /  _____  \ |  |\  \---)   | 
+          ________________.  ___     .______
+         /                | /   \    |   _  \
+        |   (-----|  |----'/  ^  \   |  |_)  |
+         \   \    |  |    /  /_\  \  |      /
+    .-----)   |   |  |   /  _____  \ |  |\  \-------.
+    |________/    |__|  /__/     \__\| _| `.________|
+     ____    __    ____  ___     .______    ________.
+     \   \  /  \  /   / /   \    |   _  \  /        |
+      \   \/    \/   / /  ^  \   |  |_)  ||   (-----'
+       \            / /  /_\  \  |      /  \   \
+        \    /\    / /  _____  \ |  |\  \---)   |
          \__/  \__/ /__/     \__\|__| `._______/ 
 ''')
 
@@ -152,96 +152,96 @@ game_over = Scene("Game over!", "game_over", "")
 phantom_menace.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 
 clone_wars.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 
 sith_revenge.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 
 new_hope.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 
 empire_strike.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 
 jedi_return.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 
 force_awakens.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 
 last_jedi.add_actions(
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 },
 {
   'block': 2,
-  'lightsaber': -1,
+  'lightsaber': 1,
   'force': -1
 })
 

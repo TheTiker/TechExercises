@@ -12,7 +12,9 @@ def strike(weapon):
 
     if weapon == 1:
       player_health -= randint(1,10)
+      enemy_health -= randint(1,20)
     elif weapon == -1:
+      player_health -= randint(1,15)
       enemy_health -= randint(1,30)
     elif weapon == 2:
       player_health -= randint(1,20)
@@ -157,7 +159,7 @@ def game_post():
                                   player_health=session['player_health'],
                                   enemy_health=session['enemy_health'],
                                   health_info = weapon)
-            
+
           if fighter_state != 0:
             next_scene = map.game_over
             next_template = 'game_over.html'
