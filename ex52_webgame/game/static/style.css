@@ -1,14 +1,13 @@
 body {
   background-image: url('/static/stars.jpg');
   color: yellow;
-  font-family: "Monospace";
+  font-family: "Lucida Console", Monaco, monospace, Verdana;
   font-size: 15px;
-  word-spacing: 2px;
 }
 
 p, a {
   color: yellow;
-  font-family: "Monospace";
+  font-family: "Lucida Console", Monaco, monospace, Verdana;
   font-size: 14px;
 }
 
